@@ -78,6 +78,17 @@ function addMealToDOM(meal) {
   `;
 }
 
+function getRandomMeal() {
+  mealsEl.innerHTML = '';
+  resultHeading.innerHTML = '';
+  fetch(`https://www.themealdb.com/api/json/v1/1/random.php`)
+    .then(res => res.json())
+    .then(data => {
+      const meal = data.meals[0];
+      addMealToDOM(meal);
+    });
+}
+
 // Event Listeners
 submit.addEventListener('submit', searchMeal);
 
@@ -93,3 +104,5 @@ mealsEl.addEventListener('click', e => {
   const mealId = mealEl.dataset.mealid;
   getMealById(mealId);
 });
+
+random.addEventListener('click', getRandomMeal);
